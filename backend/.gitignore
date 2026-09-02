@@ -41,12 +41,3 @@ out/
 
 .DS_Store
 
-# Monorepo paths
-backend/src/main/resources/application-dev.properties
-backend/.gradle/
-backend/build/
-
-# Frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
