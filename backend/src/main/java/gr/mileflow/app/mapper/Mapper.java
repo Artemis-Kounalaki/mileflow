@@ -19,16 +19,22 @@ public class Mapper {
     }
 
     public AthleteReadOnlyDTO mapToAthleteReadOnlyDTO(Athlete athlete){
-        return new AthleteReadOnlyDTO(athlete.getId(),
+        return new AthleteReadOnlyDTO(
+                athlete.getId(),
                 athlete.getFirstname(),
                 athlete.getLastname(),
                 athlete.getBirthday(),
-                athlete.getGender(),athlete.getUser().getUsername(),
-                athlete.getUser().getEmail());
+                athlete.getGender(),
+                athlete.getUser().getUsername(),
+                athlete.getUser().getEmail(),
+                athlete.getCoach().getFirstname() + " " + athlete.getCoach().getLastname()
+        );
     }
 
     public CoachReadOnlyDTO mapToCoachReadOnlyDTO(Coach coach){
-        return new CoachReadOnlyDTO(coach.getId(), coach.getFirstname(), coach.getLastname(),
+        return new CoachReadOnlyDTO(coach.getId(),
+                coach.getFirstname(),
+                coach.getLastname(),
                 coach.getBirthday());
     }
 
