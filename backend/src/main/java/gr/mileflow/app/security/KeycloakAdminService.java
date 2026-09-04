@@ -24,7 +24,10 @@ public class KeycloakAdminService {
     @Value("${keycloak.admin.realm}")
     private String realm;
 
-    public KeycloakUserCreationResult createUser(UserInsertDTO dto) {
+    public KeycloakUserCreationResult createUser(
+            UserInsertDTO dto,
+            String role
+    ) {
 
         UserRepresentation user = new UserRepresentation();
 
@@ -63,11 +66,11 @@ public class KeycloakAdminService {
             String keycloakId =
                     location.substring(location.lastIndexOf("/") + 1);
 
-            RoleRepresentation athleteRole =
+            RoleRepresentation userRole =
                     keycloak
                             .realm(realm)
                             .roles()
-                            .get("ATHLETE")
+                            .get(role)
                             .toRepresentation();
 
             keycloak
@@ -76,7 +79,7 @@ public class KeycloakAdminService {
                     .get(keycloakId)
                     .roles()
                     .realmLevel()
-                    .add(List.of(athleteRole));
+                    .add(List.of(userRole));
 
             return new KeycloakUserCreationResult(
                     keycloakId,

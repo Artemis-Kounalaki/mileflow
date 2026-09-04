@@ -20,7 +20,7 @@ let keycloakInitPromise: Promise<boolean> | null = null;
 const initKeycloak = () => {
     if (!keycloakInitPromise) {
         keycloakInitPromise = keycloak.init({
-            onLoad: "check-sso",
+            onLoad: "login-required",
         });
     }
 
@@ -50,12 +50,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
                     setUsername(username);
 
-                    if (roles.includes("ATHLETE")) {
-                        setRole("ATHLETE");
+                    if (roles.includes("SUPERADMIN")) {
+                        setRole("SUPERADMIN");
                     } else if (roles.includes("COACH")) {
                         setRole("COACH");
-                    } else if (roles.includes("SUPERADMIN")) {
-                        setRole("SUPERADMIN");
+                    } else if (roles.includes("ATHLETE")) {
+                        setRole("ATHLETE");
                     }
 
                     console.log("Authenticated:", authenticated);
