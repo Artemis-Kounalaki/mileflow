@@ -105,22 +105,7 @@ function HomePage() {
                                 Explore MileFlow
                             </Button>
                         </div>
-                        <div className="mt-10 flex flex-wrap items-center gap-8">
-                            <div>
-                                <p className="text-3xl font-black text-[var(--text-h)]">1</p>
-                                <p className="mt-1 text-sm text-muted-foreground">Platform</p>
-                            </div>
-                            <div className="h-10 w-px bg-[var(--border)]" />
-                            <div>
-                                <p className="text-3xl font-black text-[var(--text-h)]">3</p>
-                                <p className="mt-1 text-sm text-muted-foreground">Roles</p>
-                            </div>
-                            <div className="h-10 w-px bg-[var(--border)]" />
-                            <div>
-                                <p className="text-3xl font-black text-dark-blue">∞</p>
-                                <p className="mt-1 text-sm text-muted-foreground">Progress</p>
-                            </div>
-                        </div>
+
                     </div>
                     <div className="relative">
                         <div className="absolute -inset-10 -z-10 rounded-full bg-[rgba(148,156,221,0.2)] blur-3xl" />
