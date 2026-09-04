@@ -12,33 +12,41 @@ import HomePage from "./pages/HomePage";
 import PerformancePage from "@/pages/PerformancePage.tsx";
 import AthletePerformancePage from "@/pages/AthletePerformancePage.tsx";
 import AthleteProgramPage from "@/pages/AthleteProgramPage.tsx";
-
+import AdminCoachesPage from "@/pages/AdminCoachesPage.tsx";
+import AdminAthletesPage from "@/pages/AdminAthletesPage.tsx";
 
 function App() {
+    return (
+        <>
+            <Routes>
+                <Route element={<RouterLayout />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage />} />
 
+                    <Route element={<ProtectedRoute />}>
+                        <Route element={<ProtectedRoute allowedRoles={["ATHLETE"]} />}>
+                            <Route path="/athlete" element={<AthletePage />} />
+                            <Route path="/athlete/program" element={<AthleteProgramPage />} />
+                            <Route path="/athlete/performance" element={<AthletePerformancePage />} />
+                        </Route>
 
-  return (
-      <>
-          <Routes>
-              <Route element={<RouterLayout />}>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route element={<ProtectedRoute />}>
-                      <Route path="/athlete" element={<AthletePage />} />
-                      <Route path="/athlete/program" element={<AthleteProgramPage />} />
-                      <Route path="/athlete/performance" element={<AthletePerformancePage />} />                      <Route path="/coach" element={<CoachPage />}/>
-                      <Route path="/coach/athletes" element={<AthletesPage />} />
-                      <Route
-                          path="/coach/athletes/create"
-                          element={<CreateAthletePage />}
-                      />
-                      <Route path="/coach/program" element={<ProgramPage />} />
-                      <Route path="/coach/performance" element={<PerformancePage />} />
-                  </Route>              </Route>
-          </Routes>
-      </>
+                        <Route element={<ProtectedRoute allowedRoles={["COACH"]} />}>
+                            <Route path="/coach" element={<CoachPage />} />
+                            <Route path="/coach/athletes" element={<AthletesPage />} />
+                            <Route path="/coach/athletes/create" element={<CreateAthletePage />} />
+                            <Route path="/coach/program" element={<ProgramPage />} />
+                            <Route path="/coach/performance" element={<PerformancePage />} />
+                        </Route>
 
-  )
+                        <Route element={<ProtectedRoute allowedRoles={["SUPERADMIN"]} />}>
+                            <Route path="/admin/coaches" element={<AdminCoachesPage />} />
+                            <Route path="/admin/athletes" element={<AdminAthletesPage />} />
+                        </Route>
+                    </Route>
+                </Route>
+            </Routes>
+        </>
+    )
 }
 
 export default App
