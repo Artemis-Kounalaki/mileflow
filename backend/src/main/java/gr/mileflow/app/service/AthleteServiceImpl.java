@@ -55,7 +55,8 @@ public class AthleteServiceImpl implements IAthleteService {
                 throw new EntityAlreadyExistsException("Email", "User with email "
                         + dto.userInsertDTO().email() + " already exists");
 
-            KeycloakUserCreationResult result = keycloakAdminService.createUser(dto.userInsertDTO());
+            KeycloakUserCreationResult result =
+                    keycloakAdminService.createUser(dto.userInsertDTO(), "ATHLETE");
             String athleteKeycloakId = result.keycloakId();
 
             Athlete athlete = mapper.mapToAthleteEntity(dto);
@@ -237,9 +238,14 @@ public class AthleteServiceImpl implements IAthleteService {
     @Transactional(readOnly = true)
     @Override
     public Page<AthleteReadOnlyDTO> getPaginatedAthletesDeletedFalse(Pageable pageable) {
-        return null;
-    }
 
+        Page<Athlete> athletesPage = athleteRepository.findAllByDeletedFalse(pageable);
+
+        log.debug("Get paginated active athletes returned successfully page={} and size={}",
+                athletesPage.getNumber(), athletesPage.getSize());
+
+        return athletesPage.map(mapper::mapToAthleteReadOnlyDTO);
+    }
     @Override
     public boolean isAthleteExists(String keycloakId) {
         return athleteRepository.findByUser_KeycloakId(keycloakId).isPresent();
