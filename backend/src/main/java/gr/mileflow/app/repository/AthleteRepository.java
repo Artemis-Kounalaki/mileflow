@@ -16,6 +16,7 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
     Optional<Athlete> findByUser_KeycloakIdAndDeletedFalse(String keycloakId);
     Optional<Athlete> findByIdAndCoach_IdAndDeletedFalse(Long athleteId, Long coachId);
 
+    Page<Athlete> findAllByDeletedFalse(Pageable pageable);
     Page<Athlete> findAllByCoach_IdAndDeletedFalse(Long coachId, Pageable pageable);
     boolean existsByIdAndUser_KeycloakId(Long athleteId, String keycloakId);
 
