@@ -10,7 +10,8 @@ public record AthleteReadOnlyDTO(
         LocalDate birthday,
         Athlete.Gender gender,
         String username,
-        String email
+        String email,
+        String coachName
 
 ) {
 }
