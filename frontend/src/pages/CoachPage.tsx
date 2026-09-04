@@ -165,7 +165,7 @@ function CoachPage() {
                                 <div>
                                     <p className="text-sm text-muted-foreground">Birthday</p>
                                     <p className="mt-1 text-lg font-medium text-[var(--text-h)]">
-                                        {new Date(coach.birthday).toLocaleDateString()}
+                                        {new Date(coach.birthday).toLocaleDateString("en-GB")}
                                     </p>
                                 </div>
                             </div>

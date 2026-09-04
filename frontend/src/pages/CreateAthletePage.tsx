@@ -122,7 +122,7 @@ function CreateAthletePage() {
                             <div>
                                 <p className="text-sm text-muted-foreground">Birthday</p>
                                 <p className="mt-1 font-medium">
-                                    {new Date(createdAthlete.birthday).toLocaleDateString()}
+                                    {new Date(createdAthlete.birthday).toLocaleDateString("en-GB")}
                                 </p>
                             </div>
                             <div>

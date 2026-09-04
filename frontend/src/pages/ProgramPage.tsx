@@ -471,7 +471,7 @@ function ProgramPage() {
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <TableCell>{new Date(session.sessionDate).toLocaleDateString()}</TableCell>
+                                                            <TableCell>{new Date(session.sessionDate).toLocaleDateString("en-GB")}</TableCell>
                                                             <TableCell>{new Date(session.sessionDate).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</TableCell>
                                                             <TableCell>{session.sportName}</TableCell>
                                                             <TableCell>{session.sets}</TableCell>

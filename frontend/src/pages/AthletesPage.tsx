@@ -301,7 +301,7 @@ function AthletesPage() {
                                                     <TableCell>{athlete.firstname}</TableCell>
                                                     <TableCell>{athlete.lastname}</TableCell>
                                                     <TableCell>
-                                                        {new Date(athlete.birthday).toLocaleDateString()}
+                                                        {new Date(athlete.birthday).toLocaleDateString("en-GB")}
                                                     </TableCell>
                                                     <TableCell>{athlete.gender}</TableCell>
                                                     <TableCell>{athlete.username}</TableCell>
