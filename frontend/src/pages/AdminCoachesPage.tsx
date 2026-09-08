@@ -10,6 +10,8 @@ interface Coach {
     firstname: string;
     lastname: string;
     birthday: string;
+    username: string;
+    email: string;
 }
 
 interface CoachPage {
@@ -87,12 +89,15 @@ function AdminCoachesPage() {
             firstname: coach.firstname,
             lastname: coach.lastname,
             birthday: coach.birthday,
-            username: "",
-            email: ""
+            username: coach.username,
+            email: coach.email
         });
+
         setTemporaryPassword(null);
+        setError(null);
         setShowForm(true);
     };
+
 
     const closeForm = () => {
         setShowForm(false);
