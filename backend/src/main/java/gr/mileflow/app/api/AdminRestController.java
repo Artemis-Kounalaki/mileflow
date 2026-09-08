@@ -1,10 +1,8 @@
 package gr.mileflow.app.api;
 
 import gr.mileflow.app.core.exceptions.EntityAlreadyExistsException;
-import gr.mileflow.app.dto.AthleteReadOnlyDTO;
-import gr.mileflow.app.dto.CoachCreationResponseDTO;
-import gr.mileflow.app.dto.CoachInsertDTO;
-import gr.mileflow.app.dto.CoachReadOnlyDTO;
+import gr.mileflow.app.core.exceptions.EntityNotFoundException;
+import gr.mileflow.app.dto.*;
 import gr.mileflow.app.service.IAthleteService;
 import gr.mileflow.app.service.ICoachService;
 import jakarta.validation.Valid;
@@ -63,4 +61,26 @@ public class AdminRestController {
                 coachService.getPaginatedCoachesDeletedFalse(pageable)
         );
     }
+
+    @PutMapping("/coaches/{id}")
+    public ResponseEntity<CoachReadOnlyDTO> updateCoach(
+            @PathVariable Long id,
+            @Valid @RequestBody CoachUpdateDTO dto
+    ) throws EntityNotFoundException, EntityAlreadyExistsException {
+
+        return ResponseEntity.ok(
+                coachService.updateCoach(id, dto)
+        );
+    }
+
+    @DeleteMapping("/coaches/{id}")
+    public ResponseEntity<CoachReadOnlyDTO> deleteCoach(
+            @PathVariable Long id
+    ) throws EntityNotFoundException {
+
+        return ResponseEntity.ok(
+                coachService.deleteCoach(id)
+        );
+    }
+
 }
