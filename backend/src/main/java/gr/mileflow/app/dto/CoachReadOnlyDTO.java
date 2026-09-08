@@ -6,6 +6,8 @@ public record CoachReadOnlyDTO(
         Long id,
         String firstname,
         String lastname,
-        LocalDate birthday
+        LocalDate birthday,
+        String username,
+        String email
 ) {
 }
