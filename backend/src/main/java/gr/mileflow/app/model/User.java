@@ -36,4 +36,10 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
+    public User(String keycloakId, String username, String email) {
+        this.keycloakId = keycloakId;
+        this.username = username;
+        this.email = email;
+    }
+
 }

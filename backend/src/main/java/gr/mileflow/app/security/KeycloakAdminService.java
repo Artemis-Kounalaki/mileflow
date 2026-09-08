@@ -2,6 +2,7 @@ package gr.mileflow.app.security;
 
 import gr.mileflow.app.dto.KeycloakUserCreationResult;
 import gr.mileflow.app.dto.UserInsertDTO;
+import gr.mileflow.app.repository.UserRepository;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -20,9 +21,89 @@ import java.util.UUID;
 public class KeycloakAdminService {
 
     private final Keycloak keycloak;
+    private final UserRepository userRepository;
 
     @Value("${keycloak.admin.realm}")
     private String realm;
+
+    public void createInitialSuperAdmin(
+            String username,
+            String email,
+            String password
+    ) {
+        var users = keycloak.realm(realm).users();
+
+        var existingUsers = users.searchByUsername(username, true);
+
+        if (!existingUsers.isEmpty()) {
+
+            String keycloakId = existingUsers.get(0).getId();
+
+            if (userRepository.findByKeycloakId(keycloakId).isEmpty()) {
+                userRepository.save(
+                        new gr.mileflow.app.model.User(
+                                keycloakId,
+                                username,
+                                email
+                        )
+                );
+            }
+
+            return;
+        }
+
+        UserRepresentation user = new UserRepresentation();
+
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setEnabled(true);
+        user.setEmailVerified(true);
+
+        CredentialRepresentation credential =
+                new CredentialRepresentation();
+
+        credential.setType(CredentialRepresentation.PASSWORD);
+        credential.setValue(password);
+        credential.setTemporary(false);
+
+        user.setCredentials(List.of(credential));
+
+        String keycloakId;
+
+        try (Response response = users.create(user)) {
+
+            if (response.getStatus() != 201) {
+                throw new RuntimeException(
+                        "Failed to create initial Superadmin. Status: "
+                                + response.getStatus()
+                );
+            }
+
+            String location = response.getHeaderString("Location");
+
+            keycloakId =
+                    location.substring(location.lastIndexOf("/") + 1);
+        }
+
+        RoleRepresentation superadminRole =
+                keycloak.realm(realm)
+                        .roles()
+                        .get("SUPERADMIN")
+                        .toRepresentation();
+
+        users.get(keycloakId)
+                .roles()
+                .realmLevel()
+                .add(List.of(superadminRole));
+
+        userRepository.save(
+                new gr.mileflow.app.model.User(
+                        keycloakId,
+                        username,
+                        email
+                )
+        );
+    }
 
     public KeycloakUserCreationResult createUser(
             UserInsertDTO dto,
