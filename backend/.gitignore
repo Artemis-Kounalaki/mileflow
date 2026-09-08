@@ -5,6 +5,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Environment variables
+.env
+.env.*
+!.env.example
+
 # Local Spring configuration
 src/main/resources/application-dev.properties
 
