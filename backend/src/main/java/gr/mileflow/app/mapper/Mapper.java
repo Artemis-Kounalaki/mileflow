@@ -35,7 +35,9 @@ public class Mapper {
         return new CoachReadOnlyDTO(coach.getId(),
                 coach.getFirstname(),
                 coach.getLastname(),
-                coach.getBirthday());
+                coach.getBirthday(),
+        coach.getUser().getUsername(),
+                coach.getUser().getEmail());
     }
 
     public Athlete mapToAthleteEntity(AthleteInsertDTO dto){
