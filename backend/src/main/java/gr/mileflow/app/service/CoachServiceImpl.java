@@ -177,12 +177,6 @@ public class CoachServiceImpl implements ICoachService{
 
     @Transactional(readOnly = true)
     @Override
-    public Page<CoachReadOnlyDTO> getPaginatedCoaches(Pageable pageable) {
-        return null;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public Page<CoachReadOnlyDTO> getPaginatedCoachesDeletedFalse(Pageable pageable) {
 
         Page<Coach> coachesPage = coachRepository.findAllByDeletedFalse(pageable);

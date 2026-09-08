@@ -14,7 +14,6 @@ public interface ICoachService {
 
     CoachReadOnlyDTO getCoachByUser_KeycloakIdDeletedFalse(String keycloakId) throws EntityNotFoundException;
 
-    Page<CoachReadOnlyDTO> getPaginatedCoaches(Pageable pageable);
     Page<CoachReadOnlyDTO> getPaginatedCoachesDeletedFalse(Pageable pageable);
 
     CoachCreationResponseDTO createCoach(CoachInsertDTO dto) throws EntityAlreadyExistsException;
